@@ -1,0 +1,38 @@
+import re  #include the reg. expression module
+
+data = "He is not lazy, he is intelligent, he is smart"
+
+
+def sanitise_string(string):
+    pattern = "[^a-zA-Z\s]" #set up regex
+    return re.sub(pattern, "", string).lower() #replace all non compliant chars with nothing and convert to lower case 
+
+
+def string_to_list(string):
+    string = sanitise_string(string)    
+    return string.split()
+
+
+def get_word(strList, i):
+    if (i >= 0 and i < len(strList)):
+        return strList[i]
+    return ""
+
+
+def sliding_context(strList, scope):
+    for i in range( len(strList) ):
+    
+        word = get_word(strList, i);
+        print( i, word )
+
+        for w in range ( i - scope, i + scope + 1):
+            if ( w != i and w >= 0 and w < len(strList) ):
+                word = get_word(strList, w);
+                print (w, word)
+
+        print("")
+    
+
+
+l = string_to_list(data)
+sliding_context(l, 2)
